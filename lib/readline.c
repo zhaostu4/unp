@@ -2,10 +2,10 @@
 #include	"unp.h"
 
 static int	read_cnt;
-static char	*read_ptr;
-static char	read_buf[MAXLINE];
+static char	*read_ptr;        //使用静态变量实现跨相继函数调用的状态信息维护，会导致这些函数变得不可重入
+static char	read_buf[MAXLINE];//或者说非线程安全了，后续会改进成线程安全的版本
 
-static ssize_t my_read(int fd, char *ptr)
+static ssize_t my_read(int fd, char *ptr)   
 {
 
 	if (read_cnt <= 0) {
@@ -31,7 +31,7 @@ ssize_t readline(int fd, void *vptr, size_t maxlen)
 
 	ptr = vptr;
 	for (n = 1; n < maxlen; n++) {
-		if ( (rc = my_read(fd, &c)) == 1) {
+		if ( (rc = my_read(fd, &c)) == 1) {  //注意这里使用的是my_read()
 			*ptr++ = c;
 			if (c == '\n')
 				break;	/* newline is stored, like fgets() */
@@ -46,7 +46,7 @@ ssize_t readline(int fd, void *vptr, size_t maxlen)
 	return(n);
 }
 
-ssize_t readlinebuf(void **vptrptr)
+ssize_t readlinebuf(void **vptrptr)   //这个新函数能展露内部缓冲区状态
 {
 	if (read_cnt)
 		*vptrptr = read_ptr;
