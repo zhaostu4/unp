@@ -14,11 +14,12 @@ main(int argc, char **argv)
 		err_sys("socket error");
 
 	bzero(&servaddr, sizeof(servaddr));
-	servaddr.sin_family = AF_INET;
-	servaddr.sin_port   = htons(80);	/* daytime server */
+	servaddr.sin_family = AF_INET;      //指定IPv4协议类型地址
+	servaddr.sin_port   = htons(13);	/* daytime server */
+	                                    //地址转化
 	if (inet_pton(AF_INET, argv[1], &servaddr.sin_addr) <= 0)
 		err_quit("inet_pton error for %s", argv[1]);
-
+                                        //激发三次握手建立连接
 	if (connect(sockfd, (SA *) &servaddr, sizeof(servaddr)) < 0)
 		err_sys("connect error");
 
@@ -29,6 +30,6 @@ main(int argc, char **argv)
 	}
 	if (n < 0)
 		err_sys("read error");
-
+	
 	exit(0);
 }

@@ -16,7 +16,7 @@ inet_pton(int family, const char *strptr, void *addrptr)
     if (family == AF_INET) {
     	struct in_addr  in_val;
 
-        if (inet_aton(strptr, &in_val)) {
+        if (inet_aton(strptr, &in_val)) {    //调用了上一节讲的函数，返回的是C字符串形式的IP地址
             memcpy(addrptr, &in_val, sizeof(struct in_addr));
             return (1);
         }

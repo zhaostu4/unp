@@ -7,6 +7,9 @@
 #include	"unp.h"
 #include	<net/if.h>
 
+#include <sys/socket.h>
+#define AF_LINK 18
+
 #define	IFI_NAME	16			/* same as IFNAMSIZ in <net/if.h> */
 #define	IFI_HADDR	 8			/* allow for 64-bit EUI-64 in future */
 

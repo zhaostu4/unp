@@ -11,14 +11,17 @@ readn(int fd, void *vptr, size_t n)
 	ptr = vptr;
 	nleft = n;
 	while (nleft > 0) {
+
+		//如果读取失败
 		if ( (nread = read(fd, ptr, nleft)) < 0) {
 			if (errno == EINTR)
 				nread = 0;		/* and call read() again */
 			else
 				return(-1);
+		//如果读成功了	
 		} else if (nread == 0)
 			break;				/* EOF */
-
+        //计算漏读的字节数，再读文件
 		nleft -= nread;
 		ptr   += nread;
 	}

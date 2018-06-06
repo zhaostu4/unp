@@ -14,9 +14,10 @@ sock_ntop(const struct sockaddr *sa, socklen_t salen)
 	switch (sa->sa_family) {
 	case AF_INET: {
 		struct sockaddr_in	*sin = (struct sockaddr_in *) sa;
-
+        //地址转换：成功则返回c字符串形式的IP地址，str指定转换格式
 		if (inet_ntop(AF_INET, &sin->sin_addr, str, sizeof(str)) == NULL)
 			return(NULL);
+		//字节排序：网络转换为主机的字节序
 		if (ntohs(sin->sin_port) != 0) {
 			snprintf(portstr, sizeof(portstr), ":%d", ntohs(sin->sin_port));
 			strcat(str, portstr);
