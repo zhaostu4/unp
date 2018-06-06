@@ -5,6 +5,8 @@
 #include	<sys/types.h>	/* basic system data types */
 #include	<sys/socket.h>	/* basic socket definitions */
 #include	<sys/time.h>	/* timeval{} for select() */
+#include    <poll.h>
+//#include    <sys/stropts.h>
 #include	<time.h>		/* timespec{} for pselect() */
 #include	<sys/time.h>	/* includes <time.h> unsafely */
 #include	<time.h>		/* old system? */
@@ -38,5 +40,12 @@ ssize_t readline(int fd, void *vptr, size_t maxlen);
 /* Write "n" bytes to a descriptor. */
 ssize_t	writen(int fd, const void *vptr, size_t n);
 
+#ifndef INFTIM
+#define INFTIM -1
+#endif
+
+#ifndef OPEN_MAX
+#define OPEN_MAX 2048
+#endif
 
 #include "all_head.c"
