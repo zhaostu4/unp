@@ -52,9 +52,9 @@ void str_cli1(FILE *fp, int sockfd)
 	fd_set		rset;
 	char		sendline[4096], recvline[4096];
 
-	FD_ZERO(&rset);                //初始化描述符集
-	for ( ; ; ) {                  //
-		FD_SET(fileno(fp), &rset); //fileno把标准文件指针转化为对应描述符
+	FD_ZERO(&rset);                		//初始化描述符集
+	for ( ; ; ) {                 					 //
+		FD_SET(fileno(fp), &rset); 	//fileno把标准文件指针转化为对应描述符
 		FD_SET(sockfd, &rset);
 		maxfdp1 = max(fileno(fp), sockfd) + 1; //maxdfp1:描述符个数，从0开始，所以要加1
 		select(maxfdp1, &rset, NULL, NULL, NULL);

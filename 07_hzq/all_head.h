@@ -24,6 +24,8 @@
 #include	<unistd.h>
 #include	<sys/wait.h>
 #include	<sys/un.h>		/* for Unix domain sockets */
+#include	<stdarg.h>		/* ANSI C header file */
+#include	<syslog.h>		/* for syslog() */
 
 #define	min(a,b)	((a) < (b) ? (a) : (b))
 #define	max(a,b)	((a) > (b) ? (a) : (b))
@@ -39,6 +41,8 @@
 ssize_t readline(int fd, void *vptr, size_t maxlen);
 /* Write "n" bytes to a descriptor. */
 ssize_t	writen(int fd, const void *vptr, size_t n);
+void err_quit(const char *fmt, ...);
+void err_ret(const char *fmt, ...);
 
 #ifndef INFTIM
 #define INFTIM -1
@@ -49,3 +53,4 @@ ssize_t	writen(int fd, const void *vptr, size_t n);
 #endif
 
 #include "all_head.c"
+#include "error.c"
