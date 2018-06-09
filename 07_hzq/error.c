@@ -1,5 +1,3 @@
-#include	"unp.h"
-
 #include	<stdarg.h>		/* ANSI C header file */
 #include	<syslog.h>		/* for syslog() */
 
@@ -97,7 +95,7 @@ static void err_doit(int errnoflag, int level, const char *fmt, va_list ap)
 	strcat(buf, "\n");
 
 	if (daemon_proc) {
-		syslog(level, buf);
+		syslog(level, "%s",(const char *)buf);
 	} else {
 		fflush(stdout);		/* in case stdout and stderr are the same */
 		fputs(buf, stderr);

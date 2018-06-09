@@ -19,7 +19,7 @@ struct sock_opts {
   const char	   *opt_str;
   int		            opt_level;     //(级别)指定系统中解释选项的代码或为通用套接字代码，或为特定于某个协议的代码
   int		            opt_name;
-  char                 *(*opt_val_str)(union val *, int);
+  char                 *(*opt_val_str)(union val *, int);//函数指针
 } sock_opts[] = {
 	{ "SO_BROADCAST",		SOL_SOCKET,	SO_BROADCAST,	sock_str_flag },
 	{ "SO_DEBUG",			SOL_SOCKET,	SO_DEBUG,		sock_str_flag },
@@ -122,8 +122,8 @@ int main(int argc, char **argv)
 
 			len = sizeof(val);
 			if (getsockopt(fd, ptr->opt_level, ptr->opt_name,
-						   &val, &len) == -1) {
-				err_ret("getsockopt error");
+						   &val, &len) == -1) {//已获取的选项值放在val指针所指向的地址
+				err_ret("getsockopt error");//val是一个结构体
 			} else {
 				printf("default = %s\n", (*ptr->opt_val_str)(&val, len));
 			}
@@ -137,8 +137,7 @@ int main(int argc, char **argv)
 /* include checkopts3 */
 static char	strres[128];
 
-static char	*
-sock_str_flag(union val *ptr, int len)
+static char	* sock_str_flag(union val *ptr, int len)
 {
 /* *INDENT-OFF* */
 	if (len != sizeof(int))
@@ -179,7 +178,7 @@ static char	*
 sock_str_timeval(union val *ptr, int len)
 {
 	struct timeval	*tvptr = &ptr->timeval_val;
-
+    
 	if (len != sizeof(struct timeval))
 		snprintf(strres, sizeof(strres),
 				 "size (%d) not sizeof(struct timeval)", len);

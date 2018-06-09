@@ -41,8 +41,8 @@
 ssize_t readline(int fd, void *vptr, size_t maxlen);
 /* Write "n" bytes to a descriptor. */
 ssize_t	writen(int fd, const void *vptr, size_t n);
-void err_quit(const char *fmt, ...);
-void err_ret(const char *fmt, ...);
+//void err_quit(const char *fmt, ...);
+//void err_ret(const char *fmt, ...);
 
 #ifndef INFTIM
 #define INFTIM -1
