@@ -22,7 +22,7 @@ main(int argc, char **argv)
 	servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
 	servaddr.sin_port        = htons(SERV_PORT);
 
-	Setsockopt(listenfd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on));
+	Setsockopt(listenfd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on));  //防止该端口上已有连接存在
 	Bind(listenfd, (SA *) &servaddr, sizeof(servaddr));
 
 	Listen(listenfd, LISTENQ);
@@ -39,7 +39,7 @@ main(int argc, char **argv)
 /* end udpservselect01 */
 
 /* include udpservselect02 */
-	Signal(SIGCHLD, sig_chld);	/* must call waitpid() */
+	Signal(SIGCHLD, sig_chld);	/* must call waitpid(), 因为TCP连接由子进程处理  */
 
 	FD_ZERO(&rset);
 	maxfdp1 = max(listenfd, udpfd) + 1;

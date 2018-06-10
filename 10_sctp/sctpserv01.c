@@ -1,7 +1,5 @@
 #include	"unp.h"
-
-int
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	int sock_fd,msg_flags;
 	char readbuf[BUFFSIZE];
@@ -12,8 +10,10 @@ main(int argc, char **argv)
 	socklen_t len;
 	size_t rd_sz;
 
-	if (argc == 2)
-		stream_increment = atoi(argv[1]);
+	if (argc == 2)                                         //需要注意几点：
+		stream_increment = atoi(argv[1]);    /*1.默认情况下服务器响应所用的流号是在其接收消息的流号上加1
+                                                                    该参数决定是否增长外来流号*/
+                                                                   /* 创建一个SCTP一到多流式套接字 */
         sock_fd = Socket(AF_INET, SOCK_SEQPACKET, IPPROTO_SCTP);
 	bzero(&servaddr, sizeof(servaddr));
 	servaddr.sin_family = AF_INET;

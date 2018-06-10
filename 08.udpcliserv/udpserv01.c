@@ -1,5 +1,5 @@
 #include	"../07_hzq/all_head.h"
-
+#include    "string.h"
 
 
 void dg_echo(int sockfd, SA *pcliaddr, socklen_t clilen);
@@ -7,7 +7,8 @@ void dg_echo(int sockfd, SA *pcliaddr, socklen_t clilen);
 int main(int argc, char **argv)
 {
 	int					sockfd;				
-	struct sockaddr_in	servaddr, cliaddr;
+	struct sockaddr_in	servaddr;
+	struct sockaddr_in cliaddr;
 
 	sockfd = socket(AF_INET, SOCK_DGRAM, 0);     //首次使用数据报类型
 
@@ -30,7 +31,13 @@ void dg_echo(int sockfd, SA *pcliaddr, socklen_t clilen)
 		len = clilen;
 		n = recvfrom(sockfd, mesg, MAXLINE, 0, pcliaddr, &len);
 
-		sendto(sockfd, mesg, n, 0, pcliaddr, len);
+		//printf("got a message\n");
+		mesg[n]=0;
+		mesg[n+1]=0;
+		printf("%s->%d:%s\n", inet_ntoa( ((struct sockaddr_in*)pcliaddr)->sin_addr ),ntohs(((struct sockaddr_in*)pcliaddr)->sin_port),mesg);
+
+		strcpy(mesg,"recived!");
+		sendto(sockfd, mesg, sizeof(mesg), 0, pcliaddr, len);
 	}
 }
 

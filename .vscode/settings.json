@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "all_head.h": "c",
+        "all_head.h\u0000all_head.h": "c",
+        "all_head.h\u0000head.h": "c",
+        "all_head.h\u0000ll_head.h": "c",
+        "all_head.h\u0000l_head.h": "c",
+        "all_head.h\u0000_head.h": "c"
+    }
+}

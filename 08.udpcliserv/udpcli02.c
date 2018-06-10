@@ -14,7 +14,7 @@ main(int argc, char **argv)
 	servaddr.sin_len = sizeof(servaddr);
 #endif
 	servaddr.sin_family = AF_INET;
-	servaddr.sin_port = htons(7);
+	servaddr.sin_port = htons(7);		//这样就可以使用任何运行标准回射服务器主机了？？
 	Inet_pton(AF_INET, argv[1], &servaddr.sin_addr);
 
 	sockfd = Socket(AF_INET, SOCK_DGRAM, 0);
