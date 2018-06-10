@@ -1,5 +1,5 @@
 #include	"unp.h"
-
+//#include	"../07_hzq/all_head.h"
 int
 main(int argc, char **argv)
 {
@@ -7,14 +7,14 @@ main(int argc, char **argv)
 	char			str[INET_ADDRSTRLEN];
 	struct hostent	*hptr;
 
-	while (--argc > 0) {
+	while (--argc > 0) {   //给每个命令行参数调用gethostbyname
 		ptr = *++argv;
 		if ( (hptr = gethostbyname(ptr)) == NULL) {
 			err_msg("gethostbyname error for host: %s: %s",
 					ptr, hstrerror(h_errno));
 			continue;
 		}
-		printf("official hostname: %s\n", hptr->h_name);
+		printf("official hostname: %s\n", hptr->h_name);   //输出规范主机名
 
 		for (pptr = hptr->h_aliases; *pptr != NULL; pptr++)
 			printf("\talias: %s\n", *pptr);
