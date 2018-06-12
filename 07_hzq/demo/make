@@ -1,0 +1,4 @@
+#!/bin/bash
+
+gcc serv.c ./src/error.c ./src/file.c ./src/all_head.c ./src/my_socket.c -o serv
+gcc cli.c ./src/error.c ./src/file.c ./src/all_head.c -o cli

@@ -4,7 +4,7 @@
 int
 main(int argc, char **argv)
 {
-	int			sockfd, mss, sendbuff;
+	int			sockfd, mss, sendbuff; 
 	socklen_t	optlen;
 
 	sockfd = Socket(AF_INET, SOCK_STREAM, 0);
