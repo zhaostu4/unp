@@ -12,6 +12,7 @@ int main(){
     socklen_t optlen=sizeof(optval);
     struct_login_user=read_file();
    
+    chdir("./");   //改变工作路径
     listenfd = socket(AF_INET, SOCK_STREAM, 0);
     setsockopt(listenfd, IPPROTO_TCP, TCP_NODELAY, optval, optlen);
 

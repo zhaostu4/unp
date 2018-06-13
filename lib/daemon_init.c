@@ -18,11 +18,11 @@ daemon_init(const char *pname, int facility)
 
 	/* child 1 continues... */
 
-	if (setsid() < 0)			/* become session leader */
+	if (setsid() < 0)			/* become session leader ，创建新的会话 */
 		return (-1);
 
-	Signal(SIGHUP, SIG_IGN);
-	if ( (pid = Fork()) < 0)
+	Signal(SIGHUP, SIG_IGN); /* 忽略掉SIGHUP信号  */
+	if ( (pid = Fork()) < 0)  /* 将来即使打开了一个终端设备，也不会自动获得控制终端 */
 		return (-1);
 	else if (pid)
 		_exit(0);			/* child 1 terminates */
@@ -31,9 +31,9 @@ daemon_init(const char *pname, int facility)
 
 	daemon_proc = 1;			/* for err_XXX() functions */
 
-	chdir("/");				/* change working directory */
+	chdir("/");				/* change working directory ，改变工作目录 */
 
-	/* close off file descriptors */
+	/* close off file descriptors，关闭所有文件描述符  */
 	for (i = 0; i < MAXFD; i++)
 		close(i);
 
