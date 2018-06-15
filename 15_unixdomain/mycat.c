@@ -2,8 +2,7 @@
 
 int		my_open(const char *, int);
 
-int
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	int		fd, n;
 	char	buff[BUFFSIZE];
